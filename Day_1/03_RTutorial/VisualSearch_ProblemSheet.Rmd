@@ -1,0 +1,313 @@
+---
+title: "Visual Search Problem Sheet"
+author: "Dejan Draschkow"
+date: "9/22/2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Brief introduction to the problem sheet
+
+Today, we will dive deep into the data analysis of actual experimental data. 
+
+Some guidelines of how to best approach the problems in this sheet:
+
+0. Please don't forget to create and periodically save your R script/markdown document. All your work and solutions should be in this script, ideally neatly commented.
+
+1. Try solving it yourself. Take a couple of minutes and really tinker - make sure you really have NO idea how to proceed.
+
+2. Use the infinite power of the world wide web to solve your problem. This is a crucial step, as you should start learning how to best word your google queries - i.e. learning the lingo! I will also provide some helpful links and resources throughout the problem sheet.
+
+3. Discuss it with your friends/best friends/bffs!
+
+4. During the live session the next day you can ask us for help, but we might answer your question with a question. Infuriating! I know.
+
+5. Maybe you will not understand every single line of code in the script. For now focus on understanding as much as you need to solve the challenges and problems. Once you have it all done you can come back to individual steps and interrogate them. 
+
+**IMPORTANT**: Nothing in this problem sheet is easy! Don't feel bad in case you struggle with some of these exercises. Try to stay positive and excited. Gather together with your group and help each other :)
+
+
+## R Markdown (*.Rmd)
+
+The document you are currently reading was also made in R. It was created using a R Markdown document -> a file type which enables you to nicely format text and ebbed code chunks in it. You should documented all your analysis steps in an R Markdown file. 
+
+It is quite easy to create and work with Rmd files, in fact you can easily open a template by going to *New File > R markdown* and saving that new file. Please use the *R markdown* instead of the *R Notebook* option!
+
+Take some time to explore [R markdown](http://milton-the-cat.rocks/learnr/r/r_getting_started/#section-r-markdown) files. Markdown enables you to do [many things](https://rmarkdown.rstudio.com/articles_intro.html) and there is a variety of [resources](https://rmarkdown.rstudio.com/lesson-1.html) worth spending some time on. Not all of [these](https://ourcodingclub.github.io/2016/11/24/rmarkdown-1.html) will be of immediate relevance to you currently but feel free to return to them.
+
+Further, it is good to use a [Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet) when solving problems! Don´t worry. There are not so many things you need to remember about markdown - just a couple of building blocks and the rest you can google on demand and copy-paste.
+
+OK, lets get going. Open your Rmd file and analyze the data as follows.
+
+
+## 1. Getting data into R
+
+We will begin with one of the most tedious processes when getting started in R: loading data files and understanding file structures.
+
+It often requires you to think about: 
+
+1. *where* your data is (e.g., which folder contains your script and which folder contains the data?), 
+
+2. *how* the file is structured (e.g., are commas or tabs separating the values?)
+
+3. *what* is captured in the rows and columns of the file (e.g. is the first row (header) different from the other rows?).
+
+You can use [smobsc](https://smobsc.readthedocs.io/en/latest/chapter_ana/Introduction%20to%20Programming%20with%20R.html#getting-data-into-and-out-of-r) and the [r cookbook](http://www.cookbook-r.com/Data_input_and_output/Loading_data_from_a_file/) for support.
+
+It can be a bit of an non-intuitive step, so start up your frustration tolerance :)
+
+#### 1.1. Read-in one data file and save it as a data frame called ```data```.
+
+```{r eval=FALSE}
+# ??? means you need to solve it
+data <- read.csv(???) 
+```
+
+In case you didn't see any errors in the console, it is very likely that you have managed to read-in your data file. If you go to the Environment tab you should be seeing a ```data``` icon with a description of its dimensions. You can click on it to see it in RStudio, which might feel a bit similar to Excel or SPSS. You can also just type the name of the data frame into your console and hit Return.
+
+But it might be a bit more comprehensive if you just have a look at the first rows of your data.
+
+```{r eval=FALSE}
+head(data,10)
+```
+
+In case your data does not look like this, it might be useful to check if you have set the appropriate separator in the ```read.csv``` command. Check what has worked or not worked with your other group members. Compare files and try to narrow down the issue! It can be fun detective work!
+
+## 2. Exploring data
+So lets start getting familiar with how you can get a better grasp of such a data set without going through it row-by-row or column-by-column. It is not the kind of thing you want to explore by hand.
+
+#### 2.1. To get a sense of your data, use the functions ```summary```and  ```str```. What types are the variables? What are the IVs and DVs in our design?
+
+```{r eval=FALSE}
+???
+```
+
+```{r eval=FALSE}
+???
+```
+
+We want to make our independent variable "congruency" an experimental *factor*. Currently, it is also called "condition", which might not be super informative, so we will change this. If you want to find out more about the different data types in R, have a look [here.](https://www.tutorialspoint.com/r/r_data_types.htm)
+
+```{r eval=FALSE}
+data$congruency <- as.factor(data$???)
+```
+
+
+Next, we will focus on the dependent variable reaction time. We saved this as ```find_target.time```. First, lets store it into a new variable called ```RT```. We do this so we have to type less :)
+
+```{r eval=FALSE}
+data$RT <- data$???
+```
+
+
+#### 2.2. Lets plot the histogramm of the response times and describe the skew and the kurtosis of the response times? Report some central tendency measures and the dispersion/range of the response time distribution.
+
+```{r eval=FALSE}
+hist(???)
+```
+
+```{r eval=FALSE}
+summary(???)
+```
+
+#### 2.3. Sometimes you might have some heavy outlier response times. For example, somebody falling asleep while doing the task :) Lets remove all trials with response times slower than 5 seconds. This is a rather arbitrary cut-off but not that many trials will get lost like this.
+
+```{r eval=FALSE}
+data_clean <- data[???<???,]
+```
+
+Notice, how we still have access to the full data set ```data``` in the Environment. But we also have the new cleaner one. This is nice because we easily keep track of changes to our data.
+
+We can check how much of the data we excluded. 1 means that we have kept all the data.
+
+```{r eval=FALSE}
+nrow(data_clean)/nrow(data)
+```
+We can check the distribution of the remaining RTs.
+
+```{r eval=FALSE}
+hist(???)
+```
+
+There are many ways to exclude outlier data and here we have selected a rather coarse one. It does the job, but in the future you can also [have a look](https://stackoverflow.com/questions/58835580/identify-and-remove-outliers-from-a-dataframe-grouped-by-subject-and-condition) at more detailed solutions.
+
+#### 2.4. All data
+OK, currently we have worked with only one data file. But of course you have more. So lets read all of your data sets in and combine them into one data frame. Use the code from above for the new (bigger) data frame.
+
+```{r eval=FALSE}
+data1 <- read.csv(???)
+data2 <- read.csv(???)
+#... and so on for all your data files
+# *once you finish with everything, you can come back here and
+# try to solve this more elegantly with a for loop
+
+# now you bind them together into one data frame
+# just throw all your individual data frames in there 
+data <- rbind(???,???,???, etc.)
+
+## like above:
+# factorize the "condition" variable
+???
+# make the new RT variable
+???
+# remove RTs above 5s
+???
+# check remaining trials and RT distribution
+???
+???
+
+```
+
+## 3. First plotting attempts
+
+To be able to proceed with a more in-depth understanding of the data, we will take a short interlude into the best way to plot and visualize your data. For this we will use a package called ```ggplot2```. Your major resources for finding your feet in ggplot2 is the official [documentation page](https://ggplot2.tidyverse.org/), as well as the [cookbook](http://www.cookbook-r.com/Graphs/).
+
+To install ``ggplot2```, click on the Packages tab in the bottom-right section of RStudio and then click on install. A dialog box will appear and in the Install Packages dialog, write the package name you want to install under the Packages field and then click install. This will install the package you searched for or give you a list of matching packages based on your text.
+
+#### 3.1. After installing ```ggplot2``` you need to load it into the environment
+
+```{r message=FALSE, eval=FALSE}
+library(ggplot2)
+```
+
+#### 3.2. Plot response time
+
+```ggplot2``` plots are made up of layers, just like most image editors.
+
+Now plot response times as a function of the ```congruency``` variable. Use ```geom_boxplot```.
+
+```{r message=FALSE, eval=FALSE}
+ggplot(data_clean, aes(x=congruency, y=RT))+geom_boxplot(width=0.1)
+```
+
+We can also add violin plots. See how to customize them [here](http://www.sthda.com/english/wiki/ggplot2-violin-plot-quick-start-guide-r-software-and-data-visualization).
+
+```{r message=FALSE, eval=FALSE}
+ggplot(data_clean, aes(x=???, y=???, fill=???))+ 
+  geom_violin(position=position_dodge(1)) + 
+  geom_boxplot(position=position_dodge(1),width=0.1)+
+  scale_fill_manual(values=c("#E69F00","#999999"))
+```
+
+Really make sure to explore the official [documentation page](https://ggplot2.tidyverse.org/) of ggplot at some point! 
+
+## 4. Aggregating data
+The plots we made above contain the entire data set, that is each experimental trial for each participant. But why did we have so many trials to begin with? Why didn't we just measure each participant 2 times: one time for each of the 2 conditions (congruent, incongruent)? Instead, we measured each condition 5 times (i.e., 5 trials per condition). In a real experiment we would even do this for hundreds of trials.
+
+```{r eval=FALSE}
+table(data[data$participant==1,]$congruency)
+```
+
+Subjecting participants to many measures in order to increase the signal-to-noise ratio in our data is a very common practice in experimental research. The idea is that each measure is associated with a lot of noise (e.g. environmental distractions, internal lapses of attention, general noise in the system of interest, etc.) and in order to give the "signal" that we care about a fighting chance against that noise, we simply measure it as often as time allows. The assumption is that when we average across all these trials, we will get a better estimation of the true measure.
+
+Lets have another look at our data.
+
+```{r eval=FALSE}
+head(data_clean)
+```
+
+Here we measured response times repeatedly for the same condition hoping that on average the measurement error will be reduced. Just imagine basing our inferences from the response time on that one trial where you received a text message and looked away from the screen. No, thank you.
+
+So we want a an average response time for each combination of condition per participant across all trials.
+
+This is what I mean:
+
+```{r eval=FALSE}
+head(aggregate(RT~participant+congruency,data=data_clean, FUN=mean) ,10)
+```
+
+Here I am only showing the first 10 rows of this data frame for demonstration. 
+
+What you should note above is that we are making a discrimination based not only on the congruency but also on "people/participants". Why? Well, the reason for this is theoretical and in our case - field specific. In the same way you can choose your random variable to be monkey, fly or country - it depends on your area of study and more specifically, it depends on what you would like to generalize towards. In our case we would like to generalize the insights we have made using the participants in this study to all people. You assume that each participant is in some ways unique, that there is variance attributed to each of your study subjects. For example, some people will be generally fast responders and other rather slow. Here we have manipulated our experimental manipulations **within** participant, meaning that each participant completes all conditions. You might be generally (on average) slow or fast, but you will get slower from your own mean in the incongruent condition.
+
+In order to continue with the statistical analysis of our data we will need to aggregate our DV accordingly. 
+
+You can read the following code like this: "Dear R, please aggregate the response time (RT) as a function of (~) participant and congruency. Oh, by the way, all these variables you can find in the data frame called "data_clean" and you should use the "mean" to summarize the response time (compared to, for example, the median). You know what. I better store the resulting aggregation into a new object "aggRT<-" so I can use it later." R likes it when you ask nicely like this.
+
+```{r eval=FALSE}
+aggRT <- aggregate(???~???+???, data=???, FUN=???)
+```
+
+Don't forget that you can always have a look at your data frames in the Environment tab on your right. Click on the little table symbol to open it. Also don't forget about the help function ```?aggregate``` and that you can google almost anything. For example, try googling "tokyo drifting glass animals" and hit the big play button. What a jam! It is an Oxford band. I like the "do do dodododo" part the most! While you are at it, you might as well put on the entire album as background music!
+
+The nice thing about a scripting language is that you can heavily re-use what you have solved before. For example, you can plot the newly aggregate data frame using the exact same code as above. You only have to tell R that you now want to plot from the ```aggRT``` data frame, instead of ```data_clean```.
+
+```{r message=FALSE, eval=FALSE}
+ggplot(???, aes(x=???, y=???, fill=???))+ 
+  geom_violin(position=position_dodge(1)) + 
+  geom_boxplot(position=position_dodge(1),width=0.1)+
+  scale_fill_manual(values=c("#E69F00","#999999"))
+```
+
+You *can* (but don't have to) make the plots even nicer by using some of the [resources we talked about](https://ggplot2.tidyverse.org/). 
+
+If you want to plot the kind of figures that you see often in papers, e.g. adding error bars, try [this one](https://rpubs.com/nayefahmad/stat-summary) or [this one](https://www.datanovia.com/en/lessons/ggplot-error-bars/).
+
+```{r message=FALSE, eval=FALSE}
+ggplot(???, aes(x=???, y=???, fill=???))+ 
+  stat_summary(fun.y = mean, geom = "bar", position = position_dodge(1)) + 
+  stat_summary(fun.data = mean_se, geom = "errorbar", position = position_dodge(1), width=0.1) +
+  scale_fill_manual(values=c("#E69F00","#999999"))
+```
+
+Feel free to use this plot for your report if you are writing one, but please select different colours, i.e., make it unique somehow.
+
+Always good to have a look at the grand means for additional support in interpreting the data,
+
+```{r message=FALSE, eval=FALSE}
+aggregate(RT~congruency, data=aggRT, FUN=mean)
+```
+
+as well as the standard deviation.
+
+```{r message=FALSE, eval=FALSE}
+aggregate(RT~congruency, data=aggRT, FUN=sd)
+```
+
+## 4. Inferential statistics
+Now it is finally time to evaluate if the descriptive effects we see in the data are statistically reliable. For simplicity, when planning this study we have planned to conduct one of the most commonly applied inferential pipelines: 
+
+1.Run an *omnibus* test - to test the global hypothesis that there is an overall effect. In our case: **Analysis of variance (ANOVA)**.
+
+2.Luckily our main effect of congruency has only 2 levels, which means we can interpret the ANOVA outcome directly as test between congruent vs incongruent. If we had a significant main effect of an effect with >2 levels, we would have to break them down with **planned pair-wise comparisons**.
+
+**Reminder**
+Similar to *t*-tests, ANOVA tests against the null hypothesis that different samples have the same mean, but it does so for more than 2 means. As an omnibus test, it actually does not inform us about which groups are different, but that there is an overall effect. The *F*-statistic, similar to the *t*-statistic compares the amount of variance in the data which systematically varies as a function of the experimental condition, with the amount of unsystematic variance - or the ratio of the statistical model to the error term.
+Don't forget that [all common statistical tests are linear models](https://lindeloev.github.io/tests-as-linear/).
+
+#### 4.1. Two-way ANOVA
+To conduct our ANOVA we will use a function called ```aov_ez```, from the package ```afex```. It is tailored to providing you with all the tools necessary for performing most types of ANOVA. 
+
+Install the ```afex``` package, find the function and use it to replicate the result from the ANOVA performed above. 
+
+```{r eval=FALSE}
+library(afex)
+```
+
+Our study is a *within-participant design*. We are interested in the effects of ```congruency``` on ```RT```. To account for the within-participant variability of our effects, we need to specify our random variable, that is the variable capturing each participant (```participant```).
+
+```{r eval=FALSE}
+RT_aov <- aov_ez(id="participant", dv="???", data=aggRT, within = c("???"))
+RT_aov
+```
+
+#### 4.2. Report the ANOVA according to APA style
+
+Please fill in the blanks below and select the appropriate phrasing to complete the section. Afterwards, you can copy-paste it into your report. If the p-values are extremely small, you can simplify  *=* with *<*:
+
+A two-way analysis of variance (ANOVA) on response times with __________ (congruent, incongruent) as a within-subject variable showed that there was *a significant / no significant* main effect, *F*(1,___) = __________, *p* = __________, *$\small \eta$^2^* = __________. Response times in the congruent condition were *faster/slower/the same* *compared to/as* response times in the incongruent condition. 
+
+
+## 5. Conduct the same analysis for accuracy
+We have completed the analysis for RTs together and now it is your turn to apply the knowledge from above to analyzing the accuracy data.
+
+To do so, you have to **1)** aggregate, **2)** plot and **3)** run the appropriate ANOVA. Instead of *RT*, you will use *accuracy*.
+
+**4)** Just like for response times, you need to report your error analysis. Use our template from above to do so. 
+
+You can recycle a lot of the code from above, but you need to tailor it to your new variable!

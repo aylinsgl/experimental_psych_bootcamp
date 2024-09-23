@@ -1,0 +1,11 @@
+"","stimulus","condition_1","condition_2","stim_id","target","trials.thisN","participant","accuracy","condition","find_target.time"
+"1","C_120","INCON","CON",4,"tire",0,1,1,"CON",1.2578195620008
+"2","C_68","INCON","CON",10,"dish soap",1,1,0,"CON",1.16997708499548
+"3","C_92","CON","INCON",1,"electric iron",2,1,1,"INCON",1.33639767300338
+"4","C_4","INCON","CON",8,"brush",3,1,0,"CON",0.951715350005543
+"5","C_12","CON","INCON",5,"dish scrubber",4,1,1,"INCON",3.4361377539899
+"6","C_10","CON","INCON",3,"bread knife",5,1,1,"INCON",1.72358837000502
+"7","C_62","CON","INCON",9,"shampoo",6,1,1,"INCON",1.94735663400206
+"8","C_43","CON","INCON",7,"clock",7,1,1,"INCON",1.15549864599598
+"9","C_104","INCON","CON",2,"belt",8,1,1,"CON",1.37570129100641
+"10","C_20","INCON","CON",6,"egg",9,1,1,"CON",1.42110637799487
